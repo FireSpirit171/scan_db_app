@@ -1,0 +1,18 @@
+{% load static %} {% get_media_prefix as media_url %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Результаты</title>
+  </head>
+  <body>
+    <h1>Результаты</h1>
+    {% for key, result in results.items %}
+    <h2>{{ key }}</h2>
+    <img src="{{ media_url }}{{ result.plot }}" width="1200" /><br />
+
+    <p>Точность (R²): {{ result.accuracy|floatformat:3 }}</p>
+    {% endfor %}
+    <a href="{% url 'index' %}">На главную</a>
+  </body>
+</html>

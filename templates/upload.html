@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Загрузка</title>
+  </head>
+  <body>
+    <h2>Загрузите CSV и выберите модели</h2>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %} {{ form.as_p }}
+      <p>Только линейная регрессия работает, остальные пока заблокированы.</p>
+      <button type="submit">Построить модели</button>
+    </form>
+  </body>
+</html>
