@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>История запусков</title>
+  </head>
+  <body>
+    <h1>История запусков</h1>
+
+    {% if entries %}
+    <ul>
+      {% for entry in entries %}
+      <li>
+        <strong>{{ entry.dataset_name }}</strong><br />
+        Дата: {{ entry.datetime }}<br />
+        Метод: {{ entry.method }}<br />
+        {% if entry.models %} Модели: {{ entry.models|join:", " }}<br />
+        {% endif %}
+        <a href="{% url 'history_detail' entry.id %}">Посмотреть детали</a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>История пустая.</p>
+    {% endif %}
+  </body>
+</html>
