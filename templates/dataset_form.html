@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Загрузка</title>
+  </head>
+  <body>
+    <h2>{{ title }}</h2>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %} {{ form.csv_file.label_tag }} {{ form.csv_file }}<br /><br />
+      {% if show_models %} {{ form.models.label_tag }}<br />
+      {{ form.models }} {% endif %}
+      <br /><button type="submit">{{ button_text }}</button>
+    </form>
+  </body>
+</html>

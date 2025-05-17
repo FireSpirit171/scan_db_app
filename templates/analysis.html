@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Анализ</title>
+  </head>
+  <body>
+    <h2>Анализ датасета</h2>
+
+    <h3>Типы данных</h3>
+    <table border="1">
+      <tr>
+        <th>Колонка</th>
+        <th>Тип</th>
+      </tr>
+      {% for name, dtype in dtypes.items %}
+      <tr>
+        <td>{{ name }}</td>
+        <td>{{ dtype }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <h3>Первые 10 строк</h3>
+    <table border="1">
+      <tr>
+        {% for col in preview.columns %}
+        <th>{{ col }}</th>
+        {% endfor %}
+      </tr>
+      {% for row in preview.values %}
+      <tr>
+        {% for val in row %}
+        <td>{{ val }}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </table>
+
+    <h3>Графики</h3>
+
+    <h4>Парные диаграммы (Pairplot)</h4>
+    <img src="{{ media_url }}{{ plots.pairplot }}" /><br /><br />
+
+    <h4>Скрипичные диаграммы</h4>
+    <div style="display: flex; gap: 20px; overflow-x: auto">
+      {% for violin in plots.violins %}
+      <img src="{{ media_url }}{{ violin }}" style="height: 300px" />
+      {% endfor %}
+    </div>
+    <br /><br />
+
+    <h4>Корреляционная матрица</h4>
+    <img src="{{ media_url }}{{ plots.heatmap }}" /><br /><br />
+
+    <a href="{% url 'index' %}">На главную</a>
+  </body>
+</html>
