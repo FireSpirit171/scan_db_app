@@ -1,27 +1,34 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <title>История запусков</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
   </head>
   <body>
-    <h1>История запусков</h1>
+    <div class="history">
+      <h1 class="history__title">История</h1>
 
-    {% if entries %}
-    <ul>
-      {% for entry in entries %}
-      <li>
-        <strong>{{ entry.dataset_name }}</strong><br />
-        Дата: {{ entry.datetime }}<br />
-        Метод: {{ entry.method }}<br />
-        {% if entry.models %} Модели: {{ entry.models|join:", " }}<br />
-        {% endif %}
-        <a href="{% url 'history_detail' entry.id %}">Посмотреть детали</a>
-      </li>
-      {% endfor %}
-    </ul>
-    {% else %}
-    <p>История пустая.</p>
-    {% endif %}
+      {% if entries %}
+      <div class="history__list">
+        {% for entry in entries %}
+        <a class="history__card" href="{% url 'history_detail' entry.id %}">
+          <div class="history__card-title">{{ entry.dataset_name }}</div>
+          <div class="history__card-info">Дата: {{ entry.datetime }}</div>
+          <div class="history__card-info">Метод: {{ entry.method }}</div>
+          {% if entry.models %}
+          <div class="history__card-info">
+            Модели: {{ entry.models|join:", " }}
+          </div>
+          {% endif %}
+        </a>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="history__empty">История пустая.</p>
+      {% endif %}
+    </div>
   </body>
 </html>

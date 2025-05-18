@@ -1,15 +1,33 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html>
+<html lang="ru">
   <head>
-    <title>Загрузка</title>
+    <meta charset="UTF-8" />
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
   </head>
   <body>
-    <h2>{{ title }}</h2>
-    <form method="post" enctype="multipart/form-data">
-      {% csrf_token %} {{ form.csv_file.label_tag }} {{ form.csv_file }}<br /><br />
-      {% if show_models %} {{ form.models.label_tag }}<br />
-      {{ form.models }} {% endif %}
-      <br /><button type="submit">{{ button_text }}</button>
-    </form>
+    <div class="form-page">
+      <h2 class="form-page__title">{{ title }}</h2>
+
+      <form class="form-page__form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-page__field">
+          {{ form.csv_file.label_tag }} {{ form.csv_file }}
+        </div>
+
+        {% if show_models %}
+        <div class="form-page__field">
+          {{ form.models.label_tag }} {{ form.models }}
+        </div>
+        {% endif %}
+
+        <button class="form-page__button" type="submit">
+          {{ button_text }}
+        </button>
+      </form>
+    </div>
   </body>
 </html>

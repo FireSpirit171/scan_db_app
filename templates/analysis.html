@@ -1,57 +1,88 @@
+{% load static %} {% get_media_prefix as media_url %}
+
 <!DOCTYPE html>
-<html>
+<html lang="ru">
   <head>
+    <meta charset="UTF-8" />
     <title>Анализ</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
   </head>
   <body>
-    <h2>Анализ датасета</h2>
+    <div class="analysis">
+      <h1 class="analysis__title">Анализ датасета</h1>
 
-    <h3>Типы данных</h3>
-    <table border="1">
-      <tr>
-        <th>Колонка</th>
-        <th>Тип</th>
-      </tr>
-      {% for name, dtype in dtypes.items %}
-      <tr>
-        <td>{{ name }}</td>
-        <td>{{ dtype }}</td>
-      </tr>
-      {% endfor %}
-    </table>
+      <section class="analysis__section">
+        <h2 class="analysis__subtitle">Типы данных</h2>
+        <table class="analysis__table">
+          <thead>
+            <tr>
+              <th>Колонка</th>
+              <th>Тип</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for name, dtype in dtypes.items %}
+            <tr>
+              <td>{{ name }}</td>
+              <td>{{ dtype }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
 
-    <h3>Первые 10 строк</h3>
-    <table border="1">
-      <tr>
-        {% for col in preview.columns %}
-        <th>{{ col }}</th>
-        {% endfor %}
-      </tr>
-      {% for row in preview.values %}
-      <tr>
-        {% for val in row %}
-        <td>{{ val }}</td>
-        {% endfor %}
-      </tr>
-      {% endfor %}
-    </table>
+      <section class="analysis__section">
+        <h2 class="analysis__subtitle">Первые 10 строк</h2>
+        <table class="analysis__table">
+          <thead>
+            <tr>
+              {% for col in preview.columns %}
+              <th>{{ col }}</th>
+              {% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in preview.values %}
+            <tr>
+              {% for val in row %}
+              <td>{{ val }}</td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
 
-    <h3>Графики</h3>
+      <section class="analysis__section">
+        <h2 class="analysis__subtitle">Графики</h2>
 
-    <h4>Парные диаграммы (Pairplot)</h4>
-    <img src="{{ media_url }}{{ plots.pairplot }}" /><br /><br />
+        <div class="analysis__block">
+          <h3 class="analysis__graph-title">Парные диаграммы (Pairplot)</h3>
+          <img
+            src="{{ media_url }}{{ plots.pairplot }}"
+            class="analysis__img"
+          />
+        </div>
 
-    <h4>Скрипичные диаграммы</h4>
-    <div style="display: flex; gap: 20px; overflow-x: auto">
-      {% for violin in plots.violins %}
-      <img src="{{ media_url }}{{ violin }}" style="height: 300px" />
-      {% endfor %}
+        <div class="analysis__block">
+          <h3 class="analysis__graph-title">Скрипичные диаграммы</h3>
+          <div class="analysis__violin-scroll">
+            {% for violin in plots.violins %}
+            <img
+              src="{{ media_url }}{{ violin }}"
+              class="analysis__violin-img"
+            />
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="analysis__block">
+          <h3 class="analysis__graph-title">Корреляционная матрица</h3>
+          <img src="{{ media_url }}{{ plots.heatmap }}" class="analysis__img" />
+        </div>
+      </section>
+
+      <a href="{% url 'index' %}" class="analysis__back-btn">На главную</a>
     </div>
-    <br /><br />
-
-    <h4>Корреляционная матрица</h4>
-    <img src="{{ media_url }}{{ plots.heatmap }}" /><br /><br />
-
-    <a href="{% url 'index' %}">На главную</a>
   </body>
 </html>

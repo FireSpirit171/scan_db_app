@@ -1,12 +1,19 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html>
+<html lang="ru">
   <head>
     <title>Главная</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
   </head>
   <body>
-    <h1>Добро пожаловать</h1>
-    <a href="{% url 'analyze' %}">Анализировать датасет</a>
-    <a href="{% url 'upload' %}">Построить модели</a>
-    <a href="{% url 'history' %}">Посмотреть историю</a>
+    <div class="container">
+      <h1>Анализ числовых датасетов</h1>
+      <div class="main__buttons">
+        <a class="btn" href="{% url 'analyze' %}">Анализ датасета</a>
+        <a class="btn" href="{% url 'upload' %}">Построение моделей</a>
+        <a class="btn" href="{% url 'history' %}">История</a>
+      </div>
+    </div>
   </body>
 </html>

@@ -1,18 +1,33 @@
 {% load static %} {% get_media_prefix as media_url %}
 
 <!DOCTYPE html>
-<html>
+<html lang="ru">
   <head>
+    <meta charset="UTF-8" />
     <title>Результаты</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
   </head>
   <body>
-    <h1>Результаты</h1>
-    {% for key, result in results.items %}
-    <h2>{{ key }}</h2>
-    <img src="{{ media_url }}{{ result.plot }}" width="1200" /><br />
+    <div class="results-page">
+      <h1 class="results-page__title">Результаты</h1>
 
-    <p>Точность (R²): {{ result.accuracy|floatformat:3 }}</p>
-    {% endfor %}
-    <a href="{% url 'index' %}">На главную</a>
+      <div class="results-page__list">
+        {% for key, result in results.items %}
+        <div class="results-page__card">
+          <h2 class="results-page__model">{{ key }}</h2>
+          <img
+            class="results-page__image"
+            src="{{ media_url }}{{ result.plot }}"
+            alt="График {{ key }}"
+          />
+          <p class="results-page__accuracy">
+            Точность (R²): {{ result.accuracy|floatformat:3 }}
+          </p>
+        </div>
+        {% endfor %}
+      </div>
+
+      <a class="results-page__back" href="{% url 'index' %}">На главную</a>
+    </div>
   </body>
 </html>
