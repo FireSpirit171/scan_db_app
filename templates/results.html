@@ -21,7 +21,8 @@
             alt="График {{ key }}"
           />
           <p class="results-page__accuracy">
-            Точность (R²): {{ result.accuracy|floatformat:3 }}
+            Точность (R²): {{ result.accuracy|floatformat:3 }}<br />
+            MAE: {{ result.mae|floatformat:3 }}
           </p>
         </div>
         {% endfor %}

@@ -13,9 +13,10 @@ from .forms import UploadDatasetForm
 from sklearn.linear_model import LinearRegression, Lasso
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor, BaggingRegressor
-from sklearn.metrics import r2_score
+from sklearn.metrics import r2_score, mean_absolute_error
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.svm import SVR
+
 
 DATA_STORE = {}
 
@@ -60,7 +61,8 @@ def upload_dataset(request):
                 preds = model.predict(X_test)
                 results['linear'] = {
                     'plot': save_plot(y_test, preds, 'Линейная регрессия', 'linear'),
-                    'accuracy': r2_score(y_test, preds)
+                    'accuracy': r2_score(y_test, preds),
+                    'mae': mean_absolute_error(y_test, preds)
                 }
 
             if 'tree' in model_choices:
@@ -69,7 +71,8 @@ def upload_dataset(request):
                 preds = model.predict(X_test)
                 results['tree'] = {
                     'plot': save_plot(y_test, preds, 'Дерево решений', 'tree'),
-                    'accuracy': r2_score(y_test, preds)
+                    'accuracy': r2_score(y_test, preds),
+                    'mae': mean_absolute_error(y_test, preds)
                 }
 
             if 'rf' in model_choices:
@@ -78,7 +81,8 @@ def upload_dataset(request):
                 preds = model.predict(X_test)
                 results['rf'] = {
                     'plot': save_plot(y_test, preds, 'Random Forest', 'rf'),
-                    'accuracy': r2_score(y_test, preds)
+                    'accuracy': r2_score(y_test, preds),
+                    'mae': mean_absolute_error(y_test, preds)
                 }
 
             if 'boost' in model_choices:
@@ -87,7 +91,8 @@ def upload_dataset(request):
                 preds = model.predict(X_test)
                 results['boost'] = {
                     'plot': save_plot(y_test, preds, 'Gradient Boosting', 'boost'),
-                    'accuracy': r2_score(y_test, preds)
+                    'accuracy': r2_score(y_test, preds),
+                    'mae': mean_absolute_error(y_test, preds)
                 }
 
             if 'knn' in model_choices:
@@ -96,7 +101,8 @@ def upload_dataset(request):
                 preds = model.predict(X_test)
                 results['knn'] = {
                     'plot': save_plot(y_test, preds, 'K-ближайших соседей', 'knn'),
-                    'accuracy': r2_score(y_test, preds)
+                    'accuracy': r2_score(y_test, preds),
+                    'mae': mean_absolute_error(y_test, preds)
                 }
 
             if 'svr' in model_choices:
@@ -105,7 +111,8 @@ def upload_dataset(request):
                 preds = model.predict(X_test)
                 results['svr'] = {
                     'plot': save_plot(y_test, preds, 'Support Vector Regression', 'svr'),
-                    'accuracy': r2_score(y_test, preds)
+                    'accuracy': r2_score(y_test, preds),
+                    'mae': mean_absolute_error(y_test, preds)
                 }
 
             if 'lasso' in model_choices:
@@ -114,7 +121,8 @@ def upload_dataset(request):
                 preds = model.predict(X_test)
                 results['lasso'] = {
                     'plot': save_plot(y_test, preds, 'Лассо-регрессия', 'lasso'),
-                    'accuracy': r2_score(y_test, preds)
+                    'accuracy': r2_score(y_test, preds),
+                    'mae': mean_absolute_error(y_test, preds)
                 }
 
             if 'bagging' in model_choices:
@@ -123,7 +131,8 @@ def upload_dataset(request):
                 preds = model.predict(X_test)
                 results['bagging'] = {
                     'plot': save_plot(y_test, preds, 'Bagging Regressor', 'bagging'),
-                    'accuracy': r2_score(y_test, preds)
+                    'accuracy': r2_score(y_test, preds),
+                    'mae': mean_absolute_error(y_test, preds)
                 }
 
             history_id = datetime.now().strftime("%Y%m%d_%H%M%S_") + uuid4().hex[:8]
