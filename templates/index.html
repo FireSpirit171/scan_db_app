@@ -7,12 +7,14 @@
     <link rel="stylesheet" href="{% static 'styles.css' %}" />
   </head>
   <body>
-    <div class="container">
-      <h1>Анализ числовых датасетов</h1>
-      <div class="main__buttons">
-        <a class="btn" href="{% url 'analyze' %}">Анализ датасета</a>
-        <a class="btn" href="{% url 'upload' %}">Построение моделей</a>
-        <a class="btn" href="{% url 'history' %}">История</a>
+    <div class="main-container">
+      <div class="container">
+        <h1>Анализ числовых датасетов</h1>
+        <div class="main__buttons">
+          <a class="btn" href="{% url 'analyze' %}">Анализ датасета</a>
+          <a class="btn" href="{% url 'upload' %}">Построение моделей</a>
+          <a class="btn" href="{% url 'history' %}">История</a>
+        </div>
       </div>
     </div>
   </body>
